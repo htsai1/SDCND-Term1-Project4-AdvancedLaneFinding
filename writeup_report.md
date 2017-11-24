@@ -13,8 +13,8 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./output_images/calibration_image_corners.jpg "Calibration Image with Founded Corners"
-[image2]: ./output_images/distortion_corrected_2.jpg "Unsidtortion"
+[image1]: ./output_images/calibration_image_corners.JPG  "Calibration Image with Founded Corners"
+[image2]: ./output_images/distortion_corrected_2.JPG  "Unsidtortion"
 [image3]: ./examples/binary_combo_example.jpg "Binary Example"
 [image4]: ./examples/warped_straight_lines.jpg "Warp Example"
 [image5]: ./examples/color_fit_lines.jpg "Fit Visual"
