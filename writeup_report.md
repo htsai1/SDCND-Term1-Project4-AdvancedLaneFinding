@@ -16,7 +16,7 @@ The goals / steps of this project are the following:
 [image1]: ./output_images/calibration_image_corners.JPG  "Calibration Image with Founded Corners"
 [image2]: ./output_images/distortion_corrected_2.JPG  "Undistortion calibration images"
 [image3]: ./output_images/distortion_corrected_test_image.JPG "Undistortion test images"
-[image3]: ./examples/warped_straight_lines.jpg "Binary Example"
+[image4]: ./output_images/pipeline_binary_3.JPG "Binary Example"
 [image4]: ./examples/warped_straight_lines.jpg "Warp Example"
 [image5]: ./examples/color_fit_lines.jpg "Fit Visual"
 [image6]: ./examples/example_output.jpg "Output"
@@ -44,7 +44,7 @@ I start by preparing "object points", which will be the (x, y, z) coordinates of
 
 ![alt text][image1]
 
-I then used the output `objpoints` and `imgpoints` to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  I applied this distortion correction to the test image using the `cv2.undistort()` function and obtained this result: 
+I then used the output `objpoints` and `imgpoints` to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  I applied this distortion correction to the calibration image using the `cv2.undistort()` function and obtained this result: 
 
 ![alt text][image2]
 
@@ -52,13 +52,13 @@ I then used the output `objpoints` and `imgpoints` to compute the camera calibra
 
 #### 1. Provide an example of a distortion-corrected image.
 
-With the calculated camera calibration matrix and distortion coefficients, I used the OpenCV function: undistort() to perform the image undistortion. This function remove distortion of image and output the undistorted image. Below is an example. You may also reference the annotation I put in the IPython notebook - "Advanced-Lane-Finding.ipynb", step 2 Apply distortion correction to raw images. 
+With the calculated camera calibration matrix (mtx) and distortion coefficients (dist), I used the OpenCV function: undistort() to perform the image undistortion. This function remove distortion of image and output the undistorted image. Below is an example. You may also reference the annotation I put in the IPython notebook - "Advanced-Lane-Finding.ipynb", step 2 Apply distortion correction to raw images. 
 
 ![alt text][image3]
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
-I used a combination of color and gradient thresholds to generate a binary image (See details of thresholding steps at lines # through # in `another_file.py`).  Here's an example of my output for this step.  (note: this is not actually from one of the test images)
+I used a combination of color and gradient thresholds to generate a binary image (See details of thresholding steps in "Advanced-Lane-Finding.ipynb - Step 3: Use color transforms, gradients, etc., to create a thresholded binary image".  Here's an example of my output for this step.
 
 ![alt text][image4]
 
