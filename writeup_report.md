@@ -32,7 +32,7 @@ The goals / steps of this project are the following:
 
 #### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one.  
 
-You're reading it!
+You're reading the writeup. Please also reference the IPython notebook - "Advanced-Lane-Finding.ipynb" which has the annotation I put along with the code.
 
 ### Camera Calibration
 
@@ -52,12 +52,13 @@ I then used the output `objpoints` and `imgpoints` to compute the camera calibra
 
 #### 1. Provide an example of a distortion-corrected image.
 
-To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one:
+With the calculated camera calibration matrix and distortion coefficients, I used the OpenCV function: undistort() to perform the image undistortion. This function remove distortion of image and output the undistorted image. Below is an example. You may also reference the annotation I put in the IPython notebook - "Advanced-Lane-Finding.ipynb", step 2 Apply distortion correction to raw images. 
+
 ![alt text][image3]
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
-I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at lines # through # in `another_file.py`).  Here's an example of my output for this step.  (note: this is not actually from one of the test images)
+I used a combination of color and gradient thresholds to generate a binary image (See details of thresholding steps at lines # through # in `another_file.py`).  Here's an example of my output for this step.  (note: this is not actually from one of the test images)
 
 ![alt text][image4]
 
