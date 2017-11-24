@@ -17,9 +17,9 @@ The goals / steps of this project are the following:
 [image2]: ./output_images/distortion_corrected_2.JPG  "Undistortion calibration images"
 [image3]: ./output_images/distortion_corrected_test_image.JPG "Undistortion test images"
 [image4]: ./output_images/pipeline_binary_3.JPG "Binary Example"
-[image4]: ./examples/warped_straight_lines.jpg "Warp Example"
-[image5]: ./examples/color_fit_lines.jpg "Fit Visual"
-[image6]: ./examples/example_output.jpg "Output"
+[image5]: ./output_images/warped.JPG "Warp Example"
+[image6]: ./output_images/finding_lane.JPG "Fit Visual"
+[image7]: ./examples/example_output.jpg "Output"
 [video1]: ./project_video.mp4 "Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
@@ -32,7 +32,7 @@ The goals / steps of this project are the following:
 
 #### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one.  
 
-You're reading the writeup. Please also reference the IPython notebook - "Advanced-Lane-Finding.ipynb" which has the annotation I put along with the code.
+You're reading the writeup. Please also see the IPython notebook - "Advanced-Lane-Finding.ipynb" which has the detailed annotation I put along with the code.
 
 ### Camera Calibration
 
@@ -58,45 +58,36 @@ With the calculated camera calibration matrix (mtx) and distortion coefficients 
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
-I used a combination of color and gradient thresholds to generate a binary image (See details of thresholding steps in "Advanced-Lane-Finding.ipynb - Step 3: Use color transforms, gradients, etc., to create a thresholded binary image".  Here's an example of my output for this step.
+I used a combination of color and gradient thresholds to generate a binary image (See details of thresholding steps in "Advanced-Lane-Finding.ipynb - Step 3: Use color transforms, gradients, to create a thresholded binary image". I applied color thresholding on HLS-S channel and gradient thresholding Sobel x on HLS-L channel. Here's an example of my output for this step.
 
 ![alt text][image4]
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
-The code for my perspective transform includes a function called `warper()`, which appears in lines 1 through 8 in the file `example.py` (output_images/examples/example.py) (or, for example, in the 3rd code cell of the IPython notebook).  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:
+The code for my perspective transform includes a function called `warper()`, which appears in "Advanced-Lane-Finding.ipynb - Step 4: Perspective transform."  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:
 
-```python
-src = np.float32(
-    [[(img_size[0] / 2) - 55, img_size[1] / 2 + 100],
-    [((img_size[0] / 6) - 10), img_size[1]],
-    [(img_size[0] * 5 / 6) + 60, img_size[1]],
-    [(img_size[0] / 2 + 55), img_size[1] / 2 + 100]])
-dst = np.float32(
-    [[(img_size[0] / 4), 0],
-    [(img_size[0] / 4), img_size[1]],
-    [(img_size[0] * 3 / 4), img_size[1]],
-    [(img_size[0] * 3 / 4), 0]])
-```
-
-This resulted in the following source and destination points:
-
-| Source        | Destination   | 
-|:-------------:|:-------------:| 
-| 585, 460      | 320, 0        | 
-| 203, 720      | 320, 720      |
-| 1127, 720     | 960, 720      |
-| 695, 460      | 960, 0        |
+    #Four source coordinates
+    src=np.float32([(585,455),
+       (700,455), 
+       (1065,695),
+       (245,695) 
+       ]) 
+    #Four desired coordinates
+    dst = np.float32([(450,0),
+       (1280-450,0),
+       (1280-450,720),
+       (450,720)
+       ])
 
 I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
 
-![alt text][image4]
+![alt text][image5]
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
-Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
+Then with the thresholded warped images, now I can detect lane lines pixels by using "Peaks in a Histogram" and fit my lane lines with a 2nd order polynomial. See details in "Advanced-Lane-Finding.ipynb - Step 5: Finding the Lane." 
 
-![alt text][image5]
+![alt text][image6]
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
