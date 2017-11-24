@@ -85,7 +85,12 @@ I verified that my perspective transform was working as expected by drawing the 
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
-Then with the thresholded warped images, now I can detect lane lines pixels by using "Peaks in a Histogram" and fit my lane lines with a 2nd order polynomial (yellow line in the picture). See details in "Advanced-Lane-Finding.ipynb - Step 5: Finding the Lane." 
+Then with the thresholded warped images, now I can detect lane lines pixels by using "Peaks in a Histogram" & "Sliding window search" and fit my lane lines with a 2nd order polynomial (yellow line in the picture). See details in "Advanced-Lane-Finding.ipynb - Step 5: Finding the Lane". 
+Some breif descrpiton of steps:
+- Take a histogram along all the columns in the lower half of the image.
+- Use sliding window search (code referenced from lesson) in the first frame to locate the starting point and the lines. After 1st search then the seatch can start from the rough area, meaning don’t have to do slide window search method again on the new frame.
+- Fit a polynominal to the found pixels
+- Visualize the result, as below.
 
 ![alt text][image6]
 
