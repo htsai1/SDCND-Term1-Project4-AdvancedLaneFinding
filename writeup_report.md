@@ -96,7 +96,9 @@ Some breif descrpiton of steps:
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I did this in lines # through # in my code in `my_other_file.py`
+I implemented the code of lane curvature and vehicle position calculation in my code in " Advanced-Lane-Finding.ipynb - Step 6" cell
+I referenced the code from the lesson & the equation of calculating radius from: http://www.intmath.com/applications-differentiation/8-radius-curvature.php.
+
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
