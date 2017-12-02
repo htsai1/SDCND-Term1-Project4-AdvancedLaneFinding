@@ -18,8 +18,8 @@ The goals / steps of this project are the following:
 [image3]: ./output_images/distortion_corrected_test_image.JPG "Undistortion test images"
 [image4]: ./output_images/pipeline_binary_3.JPG "Binary Example"
 [image5]: ./output_images/warped.JPG "Warp Example"
-[image6]: ./output_images/laneboundary.JPG "Identified Lane"
-[image7]: ./examples/example_output.jpg "Output"
+[image6]: ./output_images/find_lane.JPG "Find Lane"
+[image7]: ./output_images/laneboundary.JPG "Identified Lane"
 [video1]: ./project_video.mp4 "Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
@@ -105,7 +105,7 @@ I referenced the code from the lesson & the equation of calculating radius from:
 I implemented this visualization step in my code in " Advanced-Lane-Finding.ipynb - Step 7 & 8".
 Step 7 is to warp the detected lane boundaries back onto the original image and Step 8 is to visualize the result. Here is an example of the result on a test image:
 
-![alt text][image6]
+![alt text][image7]
 
 ---
 
