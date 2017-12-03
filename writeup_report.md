@@ -21,7 +21,7 @@ The goals / steps of this project are the following:
 [image6]: ./output_images/warped.JPG "Warp Example"
 [image7]: ./output_images/find_lane.JPG "Find Lane"
 [image8]: ./output_images/filledlane.JPG "Identified Lane"
-[video1]: ./project_video.mp4 "Video"
+[video1]: ./result_output video.mp4 "Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
 
@@ -103,7 +103,7 @@ The code in bottom of Step 5 is to warp the detected lane boundaries back onto t
 
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
-Here's a [link to my video result](./result_video.mp4)
+Here's a [link to my video result](./result_output video.mp4)
 
 You may found further details in  Advanced-Lane-Finding.ipynb - Video Processing Pipeline.
 
