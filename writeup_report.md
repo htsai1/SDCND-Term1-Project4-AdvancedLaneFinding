@@ -16,7 +16,7 @@ The goals / steps of this project are the following:
 [image1]: ./output_images/calibration_image_corners.JPG  "Calibration Image with Founded Corners"
 [image2]: ./output_images/distortion_corrected_2.JPG  "Undistortion calibration images"
 [image3]: ./output_images/distortion_corrected_test_image.JPG "Undistortion test images"
-[image4]: ./output_images/pipeline_binary_3.JPG "Binary Example"
+[image4]: ./output_images/combine.JPG "Binary Example"
 [image5]: ./output_images/warped.JPG "Warp Example"
 [image6]: ./output_images/find_lane.JPG "Find Lane"
 [image7]: ./output_images/laneboundary.JPG "Identified Lane"
@@ -38,7 +38,7 @@ You're reading the writeup. Please also see the IPython notebook - "Advanced-Lan
 
 #### 1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
 
-The code for this step is contained in the IPython notebook - "Advanced-Lane-Finding.ipynb", step 1 Calibrating Camera.
+The code for this step is contained in the IPython notebook - "Advanced-Lane-Finding.ipynb", in preprocess class, step 1 - Calibrating Camera.
 
 I start by preparing "object points", which will be the (x, y, z) coordinates of the chessboard corners in the world. Here I am assuming the chessboard is fixed on the (x, y) plane at z=0, such that the object points are the same for each calibration image.  Thus, `objp` is just a replicated array of coordinates, and `objpoints` will be appended with a copy of it every time I successfully detect all chessboard corners in a test image. See below as an example.  `imgpoints` will be appended with the (x, y) pixel position of each of the corners in the image plane with each successful chessboard detection.  
 
@@ -52,32 +52,31 @@ I then used the output `objpoints` and `imgpoints` to compute the camera calibra
 
 #### 1. Provide an example of a distortion-corrected image.
 
-With the calculated camera calibration matrix (mtx) and distortion coefficients (dist), I used the OpenCV function: undistort() to perform the image undistortion. This function remove distortion of image and output the undistorted image. Below is an example. You may also reference the annotation I put in the IPython notebook - "Advanced-Lane-Finding.ipynb", step 2 Apply distortion correction to raw images. 
+With the calculated camera calibration matrix (mtx) and distortion coefficients (dist), I used the OpenCV function: undistort() to perform the image undistortion. This function remove distortion of image and output the undistorted image. Below is an exampleof applying distortion correction to raw images. 
 
 ![alt text][image3]
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
-I used a combination of color and gradient thresholds to generate a binary image (See details of thresholding steps in "Advanced-Lane-Finding.ipynb - Step 3: Use color transforms, gradients, to create a thresholded binary image". I applied color thresholding on HLS-S channel and gradient thresholding Sobel x on HLS-L channel. Here's an example of my output for this step.
+As the code in combined_binary() function in Preprocess class, I used combination of the L-channel of LUV and the b-channel of Lab to create a stacked thresholded binary image.  Here's an example of my output for this step.
 
 ![alt text][image4]
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
-The code for my perspective transform includes a function called `warper()`, which appears in "Advanced-Lane-Finding.ipynb - Step 4: Perspective transform."  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:
+The code for my perspective transform includes a function called `birds_eye()`, which appears in "Preprocess class & Step 4: Perspective transform."  The `birds_eye()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I used the get_src_dest_warp_points() function to the source and destination points:
 
-    #Four source coordinates
-    src=np.float32([(585,455),
-       (700,455), 
-       (1065,695),
-       (245,695) 
-       ]) 
-    #Four desired coordinates
-    dst = np.float32([(450,0),
-       (1280-450,0),
-       (1280-450,720),
-       (450,720)
-       ])
+src= 
+[[  253.   697.]
+ [  585.   456.]
+ [  700.   456.]
+ [ 1061.   690.]]
+
+dest=
+[[  303.   697.]
+ [  303.     0.]
+ [ 1011.     0.]
+ [ 1011.   690.]]
 
 I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
 
@@ -113,7 +112,7 @@ Step 7 is to warp the detected lane boundaries back onto the original image and 
 
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
-Here's a [link to my video result](./project_video.mp4)
+Here's a [link to my video result](./result_video.mp4)
 
 ---
 
