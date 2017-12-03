@@ -20,7 +20,7 @@ The goals / steps of this project are the following:
 [image5]: ./output_images/src_dest.JPG "src dest Example"
 [image6]: ./output_images/warped.JPG "Warp Example"
 [image7]: ./output_images/find_lane.JPG "Find Lane"
-[image8]: ./output_images/laneboundary.JPG "Identified Lane"
+[image8]: ./output_images/filledlane.JPG "Identified Lane"
 [video1]: ./project_video.mp4 "Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
