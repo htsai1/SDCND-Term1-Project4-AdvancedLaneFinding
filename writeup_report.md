@@ -113,4 +113,10 @@ You may found further details in  Advanced-Lane-Finding.ipynb - Video Processing
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+Problems that I encounter would have to do with finding good methods of thresholding to create good binary image result, due to different images has different lighting condition (ex: shadows of trees), I did not get good result when I first tried thrsholding the L channel of the HLS color space. I found B channel of the LAB color space does extremely well job on the yellow line, and this solved the problem I was having regarding lighting condition. 
+As I mentioned, the major challenges of this image processing project has to do with lighting condition, color...etc. My pipeline may likely to fail during the vehicle is in night time operation. Wheather condition (snow, heavy rain) and road surface condition (wet due to rain and cause refelection) may also cause some issue. Further improvement of this project I would definitely consider explore more other color spaces and how their channel can do best in terms of thresholding. 
+The other interesting point I feel like to explore is when there is other vehicle cut into the lane in front of you and see how the image could deal with those kind of situation, meaning when the lane line is changing more unpredictablely. 
+My overall take aways of this imageprocessing are: 
+- You absolutely need a great camera for high resolution image, not only to identigy the lane, but also other signs, traffic light...etc. But you need other sensors technologies to help you during the night time, bad weather, or even when you dont have good images caputured (sun occlusion).
+- Can not just rely on camera images to tell you where the vehicle is at on the lane. You still need good RNDF (Road Network Definition File) to help you for localization, some prior map to help you know where you exactly locate at.  
+- You need a high performance computer for real time images processing.
