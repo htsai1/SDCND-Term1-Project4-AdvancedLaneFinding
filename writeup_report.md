@@ -104,7 +104,9 @@ The code in bottom of Step 5 is to warp the detected lane boundaries back onto t
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
 Here's a [link to my video result](./result_video.mp4)
+
 You may found further details in  Advanced-Lane-Finding.ipynb - Video Processing Pipeline.
+
 ---
 
 ### Discussion
