@@ -17,9 +17,10 @@ The goals / steps of this project are the following:
 [image2]: ./output_images/distortion_corrected_2.JPG  "Undistortion calibration images"
 [image3]: ./output_images/distortion_corrected_test_image.JPG "Undistortion test images"
 [image4]: ./output_images/combine.JPG "Binary Example"
-[image5]: ./output_images/warped.JPG "Warp Example"
-[image6]: ./output_images/find_lane.JPG "Find Lane"
-[image7]: ./output_images/laneboundary.JPG "Identified Lane"
+[image5]: ./output_images/src_dest.JPG "src dest Example"
+[image6]: ./output_images/warped.JPG "Warp Example"
+[image7]: ./output_images/find_lane.JPG "Find Lane"
+[image8]: ./output_images/laneboundary.JPG "Identified Lane"
 [video1]: ./project_video.mp4 "Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
@@ -52,59 +53,49 @@ I then used the output `objpoints` and `imgpoints` to compute the camera calibra
 
 #### 1. Provide an example of a distortion-corrected image.
 
-With the calculated camera calibration matrix (mtx) and distortion coefficients (dist), I used the OpenCV function: undistort() to perform the image undistortion. This function remove distortion of image and output the undistorted image. Below is an exampleof applying distortion correction to raw images. 
+With the calculated camera calibration matrix (mtx) and distortion coefficients (dist), I used the OpenCV function: undistort() to perform the image undistortion. This function remove distortion of image and output the undistorted image. Below is an exampleof applying distortion correction to raw images. See more details and examples of undistortion in ipython notebook Step 1.
 
 ![alt text][image3]
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
-As the code in combined_binary() function in Preprocess class, I used combination of the L-channel of LUV and the b-channel of Lab to create a stacked thresholded binary image.  Here's an example of my output for this step.
+After image undistortion, you may choose to do binary images first or perspective transform first. In this project I choose to do perspective transform first so the image here has already become "birds-eye view". You may see details in item #3 below before you read this item #2. 
+For creating thresholded binary images, as the code in combined_binary() function in Preprocess class, I used combination of the L-channel of LUV and the b-channel of Lab to create a stacked thresholded binary image.  You may see further code detais in show_threshold_plot() function in preprocess class and more other test results in step 3 in ipython notebook. Here's one of examples that output from this step.
 
 ![alt text][image4]
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
-The code for my perspective transform includes a function called `birds_eye()`, which appears in "Preprocess class & Step 4: Perspective transform."  The `birds_eye()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I used the get_src_dest_warp_points() function to the source and destination points:
-
-src= 
-[[  253.   697.]
- [  585.   456.]
- [  700.   456.]
- [ 1061.   690.]]
-
-dest=
-[[  303.   697.]
- [  303.     0.]
- [ 1011.     0.]
- [ 1011.   690.]]
-
-I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
+As mentioned above, in this project I choose to perform perspective transform right after I undistorted the image. The code for my perspective transform includes a function called `birds_eye()`, which appears in "Preprocess class & Step 2: Perspective transform."  The `birds_eye()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I used the get_src_dest_warp_points() function to the source and destination points:
 
 ![alt text][image5]
 
-#### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
-
-Then with the thresholded warped images, now I can detect lane lines pixels by using "Peaks in a Histogram" & "Sliding window search" and fit my lane lines with a 2nd order polynomial (yellow line in the picture). See details in "Advanced-Lane-Finding.ipynb - Step 5: Finding the Lane". 
-Some breif descrpiton of steps:
-- Take a histogram along all the columns in the lower half of the image.
-- Use sliding window search (code referenced from lesson) in the first frame to locate the starting point and the lines. After 1st search then the seatch can start from the rough area, meaning don’t have to do slide window search method again on the new frame.
-- Fit a polynominal to the found pixels
-- Visualize the result, as below.
+I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
 
 ![alt text][image6]
 
+#### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
+
+Then with the thresholded combined binary images, now I can detect lane lines pixels by using Peaks in a Histogram & Sliding window Search and fit my lane lines with a 2nd order polynomial. See details in fill_lanes () function in Advanced-Lane-Finding.ipynb - Step 5: Finding and Filling The Lane. Some breif descrpiton of steps:
+- Take a histogram along all the columns in the lower half of the image.
+- Use sliding window search (code referenced from lesson) in the first frame to locate the starting point and the lines. After 1st search then the seatch can start from the rough area, meaning don’t have to do slide window search method again on the new frame.
+- Fit a polynominal to the found lane line pixels.
+
+Example result:
+
+![alt text][image7]
+
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I implemented the code of lane curvature and vehicle position calculation in my code in " Advanced-Lane-Finding.ipynb - Step 6" cell
-I referenced the code from the lesson & the equation of calculating radius from: http://www.intmath.com/applications-differentiation/8-radius-curvature.php.
+I implemented the code of lane curvature and vehicle position calculation in get_radius_and_deviation() function in Advanced-Lane-Finding.ipynb - Step 4 cell. I referenced the code from the lesson & the equation of calculating radius from: http://www.intmath.com/applications-differentiation/8-radius-curvature.php.
 
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
-I implemented this visualization step in my code in " Advanced-Lane-Finding.ipynb - Step 7 & 8".
-Step 7 is to warp the detected lane boundaries back onto the original image and Step 8 is to visualize the result. Here is an example of the result on a test image:
+I implemented this visualization step in my code in Advanced-Lane-Finding.ipynb - Step 5 (close to bottom) & Step 6.
+The code in bottom of Step 5 is to warp the detected lane boundaries back onto the original image and Step 6 is to visualize the result. Here is an example of the result on a test image:
 
-![alt text][image7]
+![alt text][image8]
 
 ---
 
@@ -113,7 +104,7 @@ Step 7 is to warp the detected lane boundaries back onto the original image and 
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
 Here's a [link to my video result](./result_video.mp4)
-
+You may found further details in  Advanced-Lane-Finding.ipynb - Video Processing Pipeline.
 ---
 
 ### Discussion
